@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Game Test 0 Demo</title>
+  <script src="./script/index.js"></script>
+</head>
+<body>
+<h1>Game Test 0</h1>
+<script src="https://cdn.jsdelivr.net/npm/gun/gun.js"></script>
+<script>
+
+class GunDBDatabaseProvider {
+
+  constructor () {
+    this.initializeDatabase()
+  }
+
+  initializeDatabase () {
+    this.database = GUN()
+  }
+
+  async createItem (itemId, item) {
+    let itemIdList = itemId.split('/')
+    let database = this.database
+    for (let i = 0; i < itemIdList.length; i++) {
+      const itemId = itemIdList[i]
+      database = database.get(itemId)
+    }
+    await database.put(item)
+    return item
+  }
+
+  async updateItem (itemId, item) {
+    return this.createItem(itemIdList, item)
+  }
+
+  async getItem (itemId) {
+    let itemIdList = itemId.split('/')
+    let database = this.database
+    for (let i = 0; i < itemIdList.length; i++) {
+      const itemId = itemIdList[i]
+      database = database.get(itemId)
+    }
+    let promise = new Promise((resolve) => {
+      database.once(function (data, key) {
+        resolve(data)
+      })
+    })
+    return promise
+  }
+
+  async deleteItem (itemId) {
+    let itemIdList = itemId.split('/')
+  }
+
+  async addItemEventListener (itemId, eventListenerFunction) {
+    let itemIdList = itemId.split('/')
+    let database = this.database
+    for (let i = 0; i < itemIdList.length; i++) {
+      const itemId = itemIdList[i]
+      database = database.get(itemId)
+    }
+    database.on((data, key) => {
+      eventListenerFunction(data)
+    })
+  }
+}
+
+</script>
+</body>
+</html>
